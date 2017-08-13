@@ -13,6 +13,9 @@ class SearchBook extends React.Component {
         myBooks:[]
     };
 
+    /**
+    * @description Autofocus on search input when navigate to search route, get current owned books and add to state.
+    */
     componentDidMount(){
         this.searchInput.focus();
         BooksAPI.getAll().then(myBooks => {
@@ -20,6 +23,9 @@ class SearchBook extends React.Component {
         });
     }
 
+    /**
+    * @description handle search, call api to get search results.
+    */
     updateQuery(query){
         this.setState({
             query
@@ -40,6 +46,10 @@ class SearchBook extends React.Component {
             });
     }
 
+    /**
+    * @description Move book from search result to my bookshelves
+    * @param {object} bookToMove - The book object which will be moved.
+    */
     moveBook = (bookToMove) => {
         const title = BOOKSHELVES_METADATA.find(m => m.type === bookToMove.shelf).title;
         BooksAPI.update(bookToMove, bookToMove.shelf)
